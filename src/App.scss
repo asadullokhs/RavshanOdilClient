@@ -1,0 +1,15 @@
+$dark-text: #2C2C2C;
+$primary-blue: #007AFF;
+$green-color: #00b929;
+
+.navbar {
+  color: $dark-text;
+  .login-btn {
+    background-color: $primary-blue;
+  }
+}
+
+.container {
+    max-width: 1440px;
+    margin: 0 auto;
+  }
