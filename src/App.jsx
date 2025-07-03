@@ -1,14 +1,28 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import Hero from './components/Hero/Hero';
 import Home from './pages/Home/Home';
 import Packages from './pages/Packages/Packages';
 import About from './pages/About/About';
 import Partners from './pages/Partners/Partners';
 import Videos from './pages/Videos/Video';
 import Contact from './pages/Contact/Contact';
+import { useInfoContext } from './context/InfoContext';
+import FlightLoader from './components/Loader/Loader';
+import Footer from './components/Footer/Footer';
+
+
+
 
 const App = () => {
+  const { loading } = useInfoContext();
+
+    if (loading) {
+    return (
+      <div className="screen">
+        <FlightLoader />
+      </div>
+    );
+  }
   return (
     <>
       <Navbar />
@@ -20,6 +34,7 @@ const App = () => {
         <Route path="/videos" element={<Videos />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Footer/>
     </>
   );
 };

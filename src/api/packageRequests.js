@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const serverUrl = import.meta.env.REACT_APP_SERVER_URL;
+const serverUrl = import.meta.env.VITE_APP_SERVER_URL;
 
 const API = axios.create({ baseURL: serverUrl });
 
@@ -11,7 +11,7 @@ export const getAllPackages = () => {
 };
 
 export const getOnePackage = (id) => {
-  return API.get(`/api/packages/${id}`);
+  return API.get(`/api/package/${id}`);
 };
 
 export const createPackage = (formDate) => {

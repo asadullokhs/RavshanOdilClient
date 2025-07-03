@@ -1,0 +1,133 @@
+.site-footer {
+  background-color: #f7f7f7;
+  padding: 50px 20px;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  color: #111;
+
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1280px;
+    margin: 0 auto;
+    gap: 40px;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    flex: 1 1 250px;
+    min-width: 250px;
+  }
+
+  .logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+
+    .footer-logo {
+      height: 60px;
+      width: auto;
+    }
+
+    .brand-name {
+      font-size: 26px;
+      font-weight: 600;
+    }
+  }
+
+  .contact-info {
+    list-style: none;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1.8;
+
+    li {
+      margin-bottom: 10px;
+      svg {
+        font-size: 20px;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .footer-center {
+    h4 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 12px;
+
+        a {
+          font-size: 18px;
+          text-decoration: none;
+          color: #333;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .footer-right {
+    h4 {
+      font-size: 22px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .icons {
+      display: flex;
+      gap: 20px;
+
+      a {
+        font-size: 28px;
+        color: #333;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: scale(1.2);
+          color: #0077ff;
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 16px;
+    color: #666;
+  }
+}
+
+// Responsive for small screens
+@media (max-width: 768px) {
+  .site-footer {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo-section {
+      justify-content: center;
+    }
+
+    .footer-right .icons {
+      justify-content: center;
+    }
+  }
+}

@@ -1,0 +1,65 @@
+.company-carousel {
+  width: 100%;
+  overflow: hidden;
+  background-color: #fff;
+  padding: 20px 0;
+
+  .scroll-track {
+    display: flex;
+    width: fit-content;
+    animation: scrollLeft 12s linear infinite;
+  }
+
+  .company-logo {
+    flex: 0 0 auto;
+    margin: 0 10px;
+    padding: 20px 40px;
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      max-height: 100px;
+      max-width:200px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.8;
+      transition: all 0.3s ease;
+
+      &:hover {
+        filter: none;
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+  }
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+@media (max-width: 768px) {
+  .company-logo {
+    margin: 0 20px;
+    img {
+      height: 60px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .company-logo {
+    margin: 0 15px;
+    img {
+      height: 50px;
+    }
+  }
+}
