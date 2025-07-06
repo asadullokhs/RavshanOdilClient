@@ -1,19 +1,18 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Drawer, Button } from 'antd';
-import { MenuOutlined } from '@ant-design/icons';
-import './Navbar.scss';
-import logo from '../../assets/logo.png';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Drawer, Button } from "antd";
+import { MenuOutlined } from "@ant-design/icons";
+import "./Navbar.scss";
+import logo from "../../assets/logo.png";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
 
   const navLinks = [
-    { to: '/', label: 'ASOSIY' },
-    { to: '/packages', label: 'UMRA TO’PLAMLARI' },
-    { to: '/about', label: 'BIZ HAQIMIZDA' },
-    { to: '/partners', label: 'BIZNING HAMKORLAR' },
-    { to: '/videos', label: 'VIDEO SHARXLAR' },
+    { to: "/", label: "ASOSIY" },
+    { to: "/packages", label: "UMRA TO’PLAMLARI" },
+    { to: "/about", label: "BIZ HAQIMIZDA" },
+    { to: "/partners", label: "BIZNING HAMKORLAR" },
   ];
 
   return (
@@ -32,8 +31,13 @@ function Navbar() {
         </nav>
 
         <div className="right-side">
-          <Button className="contact-button">Bog’lanish</Button>
-          <MenuOutlined className="hamburger-icon" onClick={() => setOpen(true)} />
+          <Link to="/contact" className="contact-button">
+            Bog’lanish
+          </Link>
+          <MenuOutlined
+            className="hamburger-icon"
+            onClick={() => setOpen(true)}
+          />
         </div>
       </div>
 
@@ -46,13 +50,19 @@ function Navbar() {
       >
         <div className="drawer-links">
           {navLinks.map(({ to, label }) => (
-            <Link key={to} to={to} onClick={() => setOpen(false)} className="drawer-link">
+            <Link
+              key={to}
+              to={to}
+              onClick={() => setOpen(false)}
+              className="drawer-link"
+            >
               {label}
             </Link>
           ))}
-          <Button className="contact-button" block>
+
+          <Link to="/contact" className="contact-button">
             Bog’lanish
-          </Button>
+          </Link>
         </div>
       </Drawer>
     </header>

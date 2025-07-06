@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "./Hero.scss";
 import { useInfoContext } from "../../context/InfoContext";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   const { packages } = useInfoContext();
@@ -39,9 +40,9 @@ const Hero = () => {
                   <a href={`/packages/${item._id}`} className="hero-btn-primary">
                     Batafsil
                   </a>
-                  <a href="#contact" className="hero-btn-secondary">
+                  <Link to="/contact" className="hero-btn-secondary">
                     Bog’lanish
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="hero-image-wrapper">
