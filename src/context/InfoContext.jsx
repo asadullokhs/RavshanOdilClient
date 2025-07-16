@@ -16,6 +16,7 @@ export const InfoProvider = ({ children }) => {
   const [companies, setCompanies] = useState([])
   const [comments, setComments] = useState([])
   
+  
 
   
 
@@ -57,7 +58,7 @@ export const InfoProvider = ({ children }) => {
       try {
         const { data } = await getAllComments();
         
-        setComments(data);
+        setComments(data.comments);
       } catch (err) {
         console.error("Error fetching companies:", err);
       } finally {

@@ -1,52 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
-import "./Testimonials.scss";
 import { useInfoContext } from "../../context/InfoContext";
-import defaultAvatar from "../../assets/umrah2.png"; // fallback image
+import defaultAvatar from "../../assets/umrah2.png";
+import "./Testimonials.scss";
 
 const TestimonialCarousel = () => {
   const { comments } = useInfoContext();
+  const [expanded, setExpanded] = useState({});
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 600,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 5000,
     slidesToShow: 3,
     slidesToScroll: 1,
     arrows: false,
     responsive: [
       {
         breakpoint: 992,
-        settings: {
-          slidesToShow: 2,
-        },
+        settings: { slidesToShow: 2 },
       },
       {
         breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-        },
+        settings: { slidesToShow: 1 },
       },
     ],
   };
 
   return (
     <section className="testimonial-carousel">
-      <h2 className="title">FIKR VA MULOHALAR</h2>
+      <h2 className="title">FIKR VA MULOHAZALAR</h2>
       <Slider {...settings} className="slider">
-        {comments.map((item, i) => (
-          <div className="testimonial-card" key={i}>
-            <div className="user-info">
-              <img src={defaultAvatar} alt="User" />
-              <h4>{item.fullName}</h4>
+        {comments?.map((item, i) => {
+          const isLong = item.comment.length > 200;
+          const isExpanded = expanded[i];
+          const displayed = isExpanded
+            ? item.comment
+            : item.comment.slice(0, 200);
+
+          return (
+            <div className="testimonial-card" key={i}>
+              <div className="user-info">
+                <img src={defaultAvatar} alt="User" />
+                <h4>{item.fullName}</h4>
+              </div>
+              <p className="comment-text">
+                {displayed}
+                {isLong && (
+                  <span
+                    className="see-more"
+                    onClick={() =>
+                      setExpanded((prev) => ({ ...prev, [i]: !prev[i] }))
+                    }
+                  >
+                    {isExpanded ? "Yopish" : "Ko‘proq ko‘rish"}
+                  </span>
+                )}
+              </p>
             </div>
-            <p className="comment-text">
-              {item.comment.length > 200 ? item.comment.slice(0, 200) + "..." : item.comment}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </Slider>
     </section>
   );

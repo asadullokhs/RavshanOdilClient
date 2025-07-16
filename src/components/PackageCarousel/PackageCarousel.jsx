@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "./PackageCarousel.scss";
 import { useInfoContext } from "../../context/InfoContext";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 // Custom Arrows
 const CustomPrevArrow = ({ onClick }) => (
@@ -85,7 +86,9 @@ const PackageCarousel = () => {
               <div className="price">
                 Narxi: <strong>{pkg.price}$</strong>
               </div>
-              <button className="more-btn">Batafsil</button>
+              <Link to={`/package/${pkg._id}`}>
+                <button className="more-btn">Batafsil</button>
+              </Link>
             </div>
           </div>
         ))}

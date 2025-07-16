@@ -13,6 +13,7 @@ function Navbar() {
     { to: "/packages", label: "UMRA TO’PLAMLARI" },
     { to: "/about", label: "BIZ HAQIMIZDA" },
     { to: "/partners", label: "BIZNING HAMKORLAR" },
+    { to: "/comment", label: "FIKR VA MULOHAZALR" },
   ];
 
   return (

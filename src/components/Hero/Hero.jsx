@@ -37,7 +37,7 @@ const Hero = () => {
                   {item.details?.slice(0, 140)}...
                 </p>
                 <div className="hero-buttons">
-                  <a href={`/packages/${item._id}`} className="hero-btn-primary">
+                  <a href={`/package/${item._id}`} className="hero-btn-primary">
                     Batafsil
                   </a>
                   <Link to="/contact" className="hero-btn-secondary">

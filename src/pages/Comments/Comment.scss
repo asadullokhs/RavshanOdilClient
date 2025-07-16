@@ -1,0 +1,118 @@
+.comments-page {
+  padding: 40px 20px;
+  max-width: 1000px;
+  margin: auto;
+  color: #000;
+  background-color: #fff;
+
+  h1 {
+    text-align: center;
+    color: #28a745;
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .comment-form {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+
+    input,
+    textarea {
+      padding: 12px 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    textarea {
+      resize: none;
+      min-height: 100px;
+    }
+
+    .ant-rate {
+      font-size: 20px;
+    }
+
+    button {
+      align-self: flex-start;
+      background-color: #28a745;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #219638;
+      }
+    }
+  }
+
+  .comments-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .comment-card {
+    background-color: #fdfdfd;
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+
+      h4 {
+        margin: 0;
+        font-size: 18px;
+        color: #28a745;
+      }
+
+      .ant-rate {
+        font-size: 18px;
+      }
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+      white-space: pre-line;
+
+      .see-more {
+        display: inline-block;
+        margin-left: 8px;
+        color: #28a745;
+        font-weight: 500;
+        cursor: pointer;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    small {
+      font-size: 13px;
+      color: #777;
+    }
+  }
+}
