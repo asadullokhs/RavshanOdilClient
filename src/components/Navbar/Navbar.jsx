@@ -60,10 +60,6 @@ function Navbar() {
               {label}
             </Link>
           ))}
-
-          <Link to="/contact" className="contact-button">
-            Bog’lanish
-          </Link>
         </div>
       </Drawer>
     </header>
