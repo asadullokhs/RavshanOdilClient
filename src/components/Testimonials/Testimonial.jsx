@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
 import { useInfoContext } from "../../context/InfoContext";
-import defaultAvatar from "../../assets/umrah2.png";
+import defaultAvatar from "../../assets/user.png";
 import "./Testimonials.scss";
 
 const TestimonialCarousel = () => {
