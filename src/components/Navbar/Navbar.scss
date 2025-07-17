@@ -74,6 +74,24 @@
 }
 
 .mobile-drawer {
+  .drawer-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+  }
+
+  .drawer-close-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #d32f2f; // Optional: red on hover
+    }
+  }
   .drawer-links {
     display: flex;
     flex-direction: column;

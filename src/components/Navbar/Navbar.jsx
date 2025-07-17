@@ -42,26 +42,31 @@ function Navbar() {
         </div>
       </div>
 
-      <Drawer
-        placement="right"
-        open={open}
-        onClose={() => setOpen(false)}
-        className="mobile-drawer"
-        closeIcon={false}
+     <Drawer
+  placement="right"
+  open={open}
+  onClose={() => setOpen(false)}
+  className="mobile-drawer"
+  closeIcon={false}
+>
+  <div className="drawer-header">
+    <button className="drawer-close-button" onClick={() => setOpen(false)}>
+      ✕
+    </button>
+  </div>
+  <div className="drawer-links">
+    {navLinks.map(({ to, label }) => (
+      <Link
+        key={to}
+        to={to}
+        onClick={() => setOpen(false)}
+        className="drawer-link"
       >
-        <div className="drawer-links">
-          {navLinks.map(({ to, label }) => (
-            <Link
-              key={to}
-              to={to}
-              onClick={() => setOpen(false)}
-              className="drawer-link"
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-      </Drawer>
+        {label}
+      </Link>
+    ))}
+  </div>
+</Drawer>
     </header>
   );
 }
