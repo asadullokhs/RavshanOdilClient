@@ -33,6 +33,7 @@ const Footer = () => {
             <li><a href="/packages">Umra to‘plamlari</a></li>
             <li><a href="/about">Biz haqimizda</a></li>
             <li><a href="/partners">Hamkorlar</a></li>
+            <li><a href="/adminLogin">Adminlar uchun</a></li>
           </ul>
         </div>
 

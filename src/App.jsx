@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home/Home';
 import Packages from './pages/Packages/Packages';
@@ -10,23 +10,26 @@ import FlightLoader from './components/Loader/Loader';
 import Footer from './components/Footer/Footer';
 import OnePackage from './pages/OnePackage/OnePackage';
 import Comment from './pages/Comments/Comment';
-
-
-
+import AdminLogin from './pages/AdminLogin/AdminLogin';
 
 const App = () => {
   const { loading } = useInfoContext();
+  const location = useLocation();
 
-    if (loading) {
+  const noLayoutRoutes = ['/adminLogin']; // Routes that should not show Navbar/Footer
+  const hideLayout = noLayoutRoutes.includes(location.pathname);
+
+  if (loading) {
     return (
       <div className="screen">
         <FlightLoader />
       </div>
     );
   }
+
   return (
     <>
-      <Navbar />
+      {!hideLayout && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/packages" element={<Packages />} />
@@ -35,8 +38,9 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/package/:id" element={<OnePackage />} />
         <Route path="/comment" element={<Comment />} />
+        <Route path="/adminLogin" element={<AdminLogin />} />
       </Routes>
-      <Footer/>
+      {!hideLayout && <Footer />}
     </>
   );
 };
