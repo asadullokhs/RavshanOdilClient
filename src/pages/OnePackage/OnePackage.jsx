@@ -150,7 +150,9 @@ const OnePackage = () => {
               placeholder="+998 91 123 45 67"
               className="phone-input"
               value={form.phoneNumber}
-              onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, phoneNumber: e.target.value })
+              }
             />
             <input
               type="number"

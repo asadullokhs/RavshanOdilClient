@@ -1,16 +1,18 @@
 .packages-carousel {
   padding: 60px 20px;
   background: #fff;
+  text-align: center;
   position: relative;
 
   .section-title {
-    text-align: left;
     font-size: 42px;
     color: #000;
-    left: 20px;
-    position: relative;
-    top: 30px;
     margin-bottom: 40px;
+  }
+
+  .package-slide {
+    display: flex !important; // Important for slick slider
+    justify-content: center;
   }
 
   .package-card {
@@ -18,16 +20,17 @@
     border-radius: 14px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     padding: 20px;
-    max-width: 370px;
-    margin: auto;
+    max-width: 360px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: 0.3s;
+    transition: all 0.3s ease;
+    margin: 0 auto;
 
     .company-logo {
       height: 40px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .main-img-wrapper {
@@ -46,21 +49,21 @@
 
     .info {
       width: 100%;
-      font-size: 18px;
+      font-size: 17px;
       color: #000;
 
       .type {
         font-size: 20px;
         font-weight: 600;
         color: #28a745;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
       }
 
       .route,
       .dates,
       .seats,
       .price {
-        margin-bottom: 6px;
+        margin-bottom: 8px;
       }
 
       .progress-bar {
@@ -73,7 +76,6 @@
         .fill {
           background-color: #28a745;
           height: 100%;
-          transition: width 0.3s ease;
         }
       }
 
@@ -81,11 +83,11 @@
         background: #28a745;
         color: white;
         border: none;
-        padding: 10px 20px;
-        font-size: 16px;
+        padding: 10px 22px;
+        font-size: 15px;
         border-radius: 8px;
-        margin-top: 10px;
         cursor: pointer;
+        margin-top: 12px;
 
         &:hover {
           background: #218838;
@@ -96,91 +98,69 @@
 
   .custom-arrow {
     position: absolute;
-    top: -55px;
-    z-index: 10;
+    top: -50px;
     width: 40px;
     height: 40px;
-    background-color: rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.05);
     color: #28a745;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    z-index: 5;
     cursor: pointer;
 
-    &.custom-arrow-prev {
-      right: 120px;
+    &.prev {
+      left: 40px;
     }
 
-    &.custom-arrow-next {
-      right: 70px;
+    &.next {
+      right: 40px;
     }
 
     &:hover {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.2);
     }
 
-    svg {
-      font-size: 20px;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .carousel-header {
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .section-title {
-    font-size: 28px;
-    text-align: center;
-  }
-
-  .custom-arrow {
-    position: static;
-    margin: 0 6px;
-    width: 36px;
-    height: 36px;
     svg {
       font-size: 18px;
     }
   }
+}
 
-  .slick-slider {
-    padding: 0 5px;
+// Mobile adjustments
+@media screen and (max-width: 768px) {
+  .section-title {
+    font-size: 28px;
+  }
+
+  .custom-arrow {
+    top: -45px;
+    width: 36px;
+    height: 36px;
+    svg {
+      font-size: 16px;
+    }
   }
 
   .package-card {
-    max-width: 90% !important;
-    margin: 0 auto;
-    padding: 14px;
-
-    .company-logo {
-      height: 30px;
-    }
+    max-width: 90%;
+    padding: 16px;
 
     .main-img-wrapper {
       height: 160px;
     }
 
     .info {
-      font-size: 16px;
+      font-size: 15px;
 
       .type {
-        font-size: 18px;
-      }
-
-      .route {
-        white-space: normal;
-        word-break: break-word;
-        font-size: 15px;
+        font-size: 17px;
       }
 
       .more-btn {
         font-size: 14px;
-        padding: 8px 18px;
+        padding: 8px 16px;
       }
     }
   }

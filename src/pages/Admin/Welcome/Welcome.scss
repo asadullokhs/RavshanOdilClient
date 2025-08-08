@@ -1,0 +1,87 @@
+.admin-welcome {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  font-family: "Segoe UI", sans-serif;
+  color: #fff;
+
+  .overlay {
+    border-radius: 30px;
+    background: linear-gradient(
+      to bottom right,
+      rgba(40, 167, 69, 0.8),
+      rgba(25, 135, 84, 0.8)
+    );
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  .welcome-content {
+    text-align: center;
+    max-width: 700px;
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+
+      a {
+        background-color: #fff;
+        color: #28a745;
+        padding: 0.8rem 1.5rem;
+        border-radius: 12px;
+        font-weight: bold;
+        text-decoration: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #28a745;
+          color: #fff;
+          transform: translateY(-3px);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    padding: 2rem;
+  }
+
+  .welcome-content {
+    h1 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    .admin-actions {
+      flex-direction: column;
+
+      a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}

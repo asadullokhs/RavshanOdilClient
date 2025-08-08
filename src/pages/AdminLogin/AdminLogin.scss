@@ -64,6 +64,22 @@
       }
     }
 
+    .exit {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 0.9rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+
+      &:hover {
+        background: #c82333;
+      }
+    }
+
     .error {
       color: red;
       font-size: 0.95rem;

@@ -15,10 +15,6 @@ export const InfoProvider = ({ children }) => {
   const [packages, setPackages] = useState([])
   const [companies, setCompanies] = useState([])
   const [comments, setComments] = useState([])
-  
-  
-
-  
 
   const [loading, setLoading] = useState(false); // State for loading
   const [isRender, setIsRender] = useState(false);

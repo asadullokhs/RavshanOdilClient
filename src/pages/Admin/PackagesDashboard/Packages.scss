@@ -1,0 +1,218 @@
+.packages-dashboard {
+  padding: 2rem;
+
+  .page-title {
+    font-size: 24px;
+    color: #28a745;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #28a745;
+    padding-bottom: 0.5rem;
+  }
+
+  .ant-table {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.03);
+  }
+
+  .ant-table-thead > tr > th {
+    background-color: #f7f7f7;
+    color: #28a745;
+    font-weight: 600;
+    font-size: 15px;
+  }
+}
+
+// Drawer header
+.ant-drawer-title {
+  color: #28a745;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+// Drawer body
+.ant-drawer-body {
+  padding: 2rem;
+  background-color: #f9f9f9;
+
+  p,
+  span,
+  li {
+    font-size: 1.05rem;
+    color: #333;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: #28a745;
+    margin: 1.5rem 0 1rem;
+    font-weight: 700;
+  }
+
+  a {
+    color: #28a745;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ul {
+    padding-left: 1.5rem;
+    list-style-type: disc;
+  }
+}
+
+// Drawer footer
+.ant-drawer-footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 2rem;
+  border-top: 1px solid #dcdcdc;
+
+  button {
+    min-width: 125px;
+    margin-left: 1rem;
+    border-radius: 10px;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #28a745;
+    margin-top: 10px;
+    color: white !important;
+    border: none;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #219638 !important;
+    }
+  }
+
+  .deleteBtn {
+    background-color: #dc3545;
+    color: white !important;
+
+    &:hover {
+      background-color: #c82333 !important;
+    }
+  }
+
+  .closeBtn {
+    background-color: #6c757d;
+    color: white !important;
+    &:hover {
+      background-color: #5a6268 !important;
+    }
+  }
+}
+
+// Company info block
+.company-info {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+
+  h3 {
+    color: #28a745;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  p {
+    margin-bottom: 0.75rem;
+    color: #333;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  a {
+    color: #28a745;
+    font-size: 1.05rem;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Mobile styles
+@media (max-width: 768px) {
+  .packages-dashboard {
+    padding: 1rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .ant-drawer-body {
+    font-size: 14px;
+    padding: 1rem;
+  }
+
+  .ant-drawer-footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+
+    button {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.form-input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+.form-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.form-button:hover {
+  background-color: #218838;
+}

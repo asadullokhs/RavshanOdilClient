@@ -1,0 +1,63 @@
+.comments-dashboard {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  .user-name {
+    font-weight: 500;
+    color: #0077cc;
+  }
+
+  .comment-text {
+    white-space: normal;
+    word-break: break-word;
+    max-width: 350px;
+    display: block;
+    font-size: 0.95rem;
+  }
+
+  .loading-container {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 0;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .comment-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    display: inline-block;
+
+    .ant-table-thead > tr > th {
+      background-color: #f4f6f8;
+      font-weight: 600;
+    }
+  }
+}
+
+// Mobile view
+@media (max-width: 768px) {
+  .comments-dashboard {
+    padding: 1rem;
+  }
+  .table-scroll {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .comment-text {
+    max-width: 150px;
+  }
+}

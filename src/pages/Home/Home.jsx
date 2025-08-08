@@ -1,6 +1,7 @@
 import CompanyCarousel from '../../components/CompanyCarousel/CompanyCarousel';
 import Hero from '../../components/Hero/Hero';
 import PackageCarousel from '../../components/PackageCarousel/PackageCarousel';
+import "./Home.scss";
 import TestimonialCarousel from '../../components/Testimonials/Testimonial';
 import { useInfoContext } from '../../context/InfoContext';
 

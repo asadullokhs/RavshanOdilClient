@@ -3,9 +3,11 @@ import { login } from "../../api/adminRequests";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 import "./AdminLogin.scss";
+import { useInfoContext } from "../../context/InfoContext";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const {setCurrentUser} = useInfoContext(); // Assuming you have a context to manage user state
   const [form, setForm] = useState({ username: "", password: "" });
 
   
@@ -17,8 +19,9 @@ const AdminLogin = () => {
 
     try {
       const res = await login(form);
-
-      localStorage.setItem("adminToken", res.data.token); // You can use JWT
+      localStorage.setItem("profile", JSON.stringify(res?.data.user));
+      localStorage.setItem("token", JSON.stringify(res?.data.token));
+      setCurrentUser(res?.data.user);
       message.success("Admin muvaffaqiyatli kirdi!");
       navigate("/admin/dashboard"); // Or wherever your admin panel is
     } catch (err) {
@@ -48,6 +51,7 @@ const AdminLogin = () => {
         />
 
         <button type="submit">🔐 Kirish</button>
+        <button onClick={() => navigate("/")} className="exit" type="Button">Chiqish</button>
 
         {error && <p className="error">{error}</p>}
       </form>
