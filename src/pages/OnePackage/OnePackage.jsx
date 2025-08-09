@@ -16,6 +16,7 @@ const OnePackage = () => {
     phoneNumber: "",
     quantity: "",
   });
+  const [submitting, setSubmitting] = useState(false);
 
   const handleOrderSubmit = async (e) => {
     e.preventDefault();
@@ -24,10 +25,11 @@ const OnePackage = () => {
       return message.warning("Iltimos, barcha maydonlarni to'ldiring.");
     }
 
+    setSubmitting(true);
     try {
       const formData = new FormData();
-      formData.append("fullName", form.fullName);
-      formData.append("phoneNumber", form.phoneNumber);
+      formData.append("fullName", form.fullName.trim());
+      formData.append("phoneNumber", form.phoneNumber.trim());
       formData.append("quantity", form.quantity);
       formData.append("package", selected._id);
 
@@ -37,25 +39,22 @@ const OnePackage = () => {
       setIsRender(!isRender);
     } catch (err) {
       message.error("Xatolik yuz berdi. Qaytadan urinib ko'ring.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  if (!selected)
-    return (
-      <div>
-        <Loading />
-      </div>
-    );
+  if (!selected) return <Loading />;
 
   return (
     <div className="packageDetail">
       <div className="container">
         <div className="hero">
-          <img src={selected.photo?.url} alt="Umra" />
+          <img src={selected.photo?.url} alt="Umra" loading="lazy" />
           <div className="badge">{selected.price} dollar</div>
         </div>
 
-        <div className="info">
+           <div className="info">
           <div className="infoItem">
             <h4>Davomiyligi</h4>
             <p>{selected.duration}</p>
@@ -131,7 +130,12 @@ const OnePackage = () => {
 
         <div className="imageGrid">
           {selected.hotelImages?.map((img, i) => (
-            <img src={img?.url || img} alt={`hotel-${i}`} key={i} />
+            <img
+              src={img?.url || img}
+              alt={`Hotel image ${i + 1} of ${selected.hotelName}`}
+              key={i}
+              loading="lazy"
+            />
           ))}
         </div>
 
@@ -143,6 +147,7 @@ const OnePackage = () => {
               placeholder="To'liq ismingiz"
               value={form.fullName}
               minLength={3}
+              required
               onChange={(e) => setForm({ ...form, fullName: e.target.value })}
             />
             <input
@@ -150,18 +155,20 @@ const OnePackage = () => {
               placeholder="+998 91 123 45 67"
               className="phone-input"
               value={form.phoneNumber}
-              onChange={(e) =>
-                setForm({ ...form, phoneNumber: e.target.value })
-              }
+              required
+              onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })}
             />
             <input
               type="number"
               placeholder="Ziyoratchilar soni"
               value={form.quantity}
               min={1}
+              required
               onChange={(e) => setForm({ ...form, quantity: e.target.value })}
             />
-            <button type="submit">Buyurtma berish</button>
+            <button type="submit" disabled={submitting}>
+              {submitting ? "Yuborilmoqda..." : "Buyurtma berish"}
+            </button>
           </form>
         </div>
       </div>

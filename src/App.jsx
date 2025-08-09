@@ -1,28 +1,47 @@
 import { Routes, Route, useLocation } from "react-router-dom";
-import Navbar from "./components/Navbar/Navbar";
-import Home from "./pages/Home/Home";
-import Packages from "./pages/Packages/Packages";
-import About from "./pages/About/About";
-import Partners from "./pages/Partners/Partners";
-import Contact from "./pages/Contact/Contact";
+import { Suspense, lazy } from "react";
 import { useInfoContext } from "./context/InfoContext";
 import FlightLoader from "./components/Loader/Loader";
+
+// Core components
+import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
-import OnePackage from "./pages/OnePackage/OnePackage";
-import Comment from "./pages/Comments/Comment";
-import AdminLogin from "./pages/AdminLogin/AdminLogin";
-import Dashboard from "./pages/Admin/Dashboard/Dashboard";
-import PackagesDashboard from "./pages/Admin/PackagesDashboard/PackagesDashboard";
-import AddPackage from "./pages/Admin/AddPackage/AddPackage";
-import Orders from "./pages/Admin/Orders/Orders";
-import Welcome from "./pages/Admin/Welcome/Welcome";
-import CommentDashboard from "./pages/Admin/CommentDashboard/CommentDashboard";
+
+// Lazy-loaded pages
+const Home = lazy(() => import("./pages/Home/Home"));
+const Packages = lazy(() => import("./pages/Packages/Packages"));
+const About = lazy(() => import("./pages/About/About"));
+const Partners = lazy(() => import("./pages/Partners/Partners"));
+const Contact = lazy(() => import("./pages/Contact/Contact"));
+const OnePackage = lazy(() => import("./pages/OnePackage/OnePackage"));
+const Comment = lazy(() => import("./pages/Comments/Comment"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin/AdminLogin"));
+
+// Lazy-load admin dashboard and subpages
+const Dashboard = lazy(() => import("./pages/Admin/Dashboard/Dashboard"));
+const Welcome = lazy(() => import("./pages/Admin/Welcome/Welcome"));
+const PackagesDashboard = lazy(() =>
+  import("./pages/Admin/PackagesDashboard/PackagesDashboard")
+);
+const AddPackage = lazy(() => import("./pages/Admin/AddPackage/AddPackage"));
+const Orders = lazy(() => import("./pages/Admin/Orders/Orders"));
+const CommentDashboard = lazy(() =>
+  import("./pages/Admin/CommentDashboard/CommentDashboard")
+);
 
 const App = () => {
   const { loading } = useInfoContext();
   const location = useLocation();
 
-  const noLayoutRoutes = ["/adminLogin","/admin/dashboard", "/admin/packagesDashboard", "/admin/add", "/admin/order","/admin/comment"]; // Routes that should not show Navbar/Footer
+  // Routes without Navbar & Footer
+  const noLayoutRoutes = [
+    "/adminLogin",
+    "/admin/dashboard",
+    "/admin/packagesDashboard",
+    "/admin/add",
+    "/admin/order",
+    "/admin/comment",
+  ];
   const hideLayout = noLayoutRoutes.includes(location.pathname);
 
   if (loading) {
@@ -36,24 +55,28 @@ const App = () => {
   return (
     <>
       {!hideLayout && <Navbar />}
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/packages" element={<Packages />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/partners" element={<Partners />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/package/:id" element={<OnePackage />} />
-        <Route path="/comment" element={<Comment />} />
-        <Route path="/adminLogin" element={<AdminLogin />} />
+      <Suspense fallback={<FlightLoader />}>
+        <Routes>
+          {/* Public pages */}
+          <Route path="/" element={<Home />} />
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/partners" element={<Partners />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/package/:id" element={<OnePackage />} />
+          <Route path="/comment" element={<Comment />} />
 
-        <Route path="/admin/*" element={<Dashboard />}>
-          <Route path="dashboard" element={<Welcome/>} />
-          <Route path="packagesDashboard" element={<PackagesDashboard />} />
-          <Route path="add" element={<AddPackage />} />
-          <Route path="order" element={<Orders />} />
-          <Route path="comment" element={<CommentDashboard />} />
-        </Route>
-      </Routes>
+          {/* Admin */}
+          <Route path="/adminLogin" element={<AdminLogin />} />
+          <Route path="/admin/*" element={<Dashboard />}>
+            <Route path="dashboard" element={<Welcome />} />
+            <Route path="packagesDashboard" element={<PackagesDashboard />} />
+            <Route path="add" element={<AddPackage />} />
+            <Route path="order" element={<Orders />} />
+            <Route path="comment" element={<CommentDashboard />} />
+          </Route>
+        </Routes>
+      </Suspense>
       {!hideLayout && <Footer />}
     </>
   );

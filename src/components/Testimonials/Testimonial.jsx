@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Slider from "react-slick";
 import { useInfoContext } from "../../context/InfoContext";
 import defaultAvatar from "../../assets/user.png";
@@ -7,6 +7,10 @@ import "./Testimonials.scss";
 const TestimonialCarousel = () => {
   const { comments } = useInfoContext();
   const [expanded, setExpanded] = useState({});
+
+  const toggleExpand = useCallback((index) => {
+    setExpanded((prev) => ({ ...prev, [index]: !prev[index] }));
+  }, []);
 
   const settings = {
     dots: false,
@@ -36,14 +40,12 @@ const TestimonialCarousel = () => {
         {comments?.map((item, i) => {
           const isLong = item.comment.length > 200;
           const isExpanded = expanded[i];
-          const displayed = isExpanded
-            ? item.comment
-            : item.comment.slice(0, 200);
+          const displayed = isExpanded ? item.comment : item.comment.slice(0, 200);
 
           return (
             <div className="testimonial-card" key={i}>
               <div className="user-info">
-                <img src={defaultAvatar} alt="User" />
+                <img src={defaultAvatar} alt="User avatar" loading="lazy" />
                 <h4>{item.fullName}</h4>
               </div>
               <p className="comment-text">
@@ -51,9 +53,12 @@ const TestimonialCarousel = () => {
                 {isLong && (
                   <span
                     className="see-more"
-                    onClick={() =>
-                      setExpanded((prev) => ({ ...prev, [i]: !prev[i] }))
-                    }
+                    onClick={() => toggleExpand(i)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyPress={(e) => {
+                      if (e.key === "Enter") toggleExpand(i);
+                    }}
                   >
                     {isExpanded ? "Yopish" : "Ko‘proq ko‘rish"}
                   </span>
@@ -67,4 +72,4 @@ const TestimonialCarousel = () => {
   );
 };
 
-export default TestimonialCarousel;
+export default React.memo(TestimonialCarousel);

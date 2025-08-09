@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { getAllPackages } from "../api/packageRequests";
 import { getAllCompanies } from "../api/companyRequests";
 import { getAllComments } from "../api/commentRequests";
@@ -9,74 +9,65 @@ export const useInfoContext = () => useContext(InfoContext);
 
 export const InfoProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("profile") || null)
+    () => JSON.parse(localStorage.getItem("profile")) || null
   );
-  
-  const [packages, setPackages] = useState([])
-  const [companies, setCompanies] = useState([])
-  const [comments, setComments] = useState([])
 
-  const [loading, setLoading] = useState(false); // State for loading
+  const [packages, setPackages] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [comments, setComments] = useState([]);
+
+  const [loading, setLoading] = useState(false);
   const [isRender, setIsRender] = useState(false);
 
-  useEffect(() => {
-    const fetchPackages = async () => {
-      setLoading(true); 
-      try {
-        const { data } = await getAllPackages();
-        
-        setPackages(data.packages);
-      } catch (err) {
-        console.error("Error fetching properties:", err);
-      } finally {
-        setLoading(false); // End loading
-      }
-    };
-
-    fetchPackages();
-
-    const fetchCompanies = async () => {
-      setLoading(true); 
-      try {
-        const { data } = await getAllCompanies();
-        
-        setCompanies(data.companies);
-      } catch (err) {
-        console.error("Error fetching companies:", err);
-      } finally {
-        setLoading(false); // End loading
-      }
-    }
-
-    fetchCompanies();
-    const fetchComments = async () => {
-      setLoading(true); 
-      try {
-        const { data } = await getAllComments();
-        
-        setComments(data.comments);
-      } catch (err) {
-        console.error("Error fetching companies:", err);
-      } finally {
-        setLoading(false); // End loading
-      }
-    }
-
-    fetchComments();
-  },[isRender]) 
-
-  
   const serverUrl = import.meta.env.VITE_APP_SERVER_URL;
+
+  // ✅ Combined fetch for better performance
+  const fetchInitialData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const [pkgRes, compRes, commentRes] = await Promise.all([
+        getAllPackages(),
+        getAllCompanies(),
+        getAllComments()
+      ]);
+
+      setPackages(pkgRes?.data?.packages || []);
+      setCompanies(compRes?.data?.companies || []);
+      setComments(commentRes?.data?.comments || []);
+    } catch (err) {
+      console.error("Error fetching initial data:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchInitialData();
+  }, [isRender, fetchInitialData]);
+
+  // ✅ Separate function to refresh comments when needed
+  const fetchComments = useCallback(async () => {
+    try {
+      const { data } = await getAllComments();
+      setComments(data.comments || []);
+    } catch (err) {
+      console.error("Error fetching comments:", err);
+    }
+  }, []);
 
   const exit = () => {
     localStorage.clear();
     setCurrentUser(null);
-    setHasRedirected(false);
   };
 
   const value = {
     packages,
     setPackages,
+    companies,
+    setCompanies,
+    comments,
+    setComments,
+    fetchComments,
     loading,
     setLoading,
     currentUser,
@@ -85,10 +76,6 @@ export const InfoProvider = ({ children }) => {
     serverUrl,
     isRender,
     setIsRender,
-    companies,
-    setCompanies,
-    comments,
-    setComments,
   };
 
   return (

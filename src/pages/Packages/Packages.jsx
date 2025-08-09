@@ -1,16 +1,21 @@
-// Packages.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { Select, Button, InputNumber, DatePicker } from "antd";
 import { useInfoContext } from "../../context/InfoContext";
-import dayjs from "dayjs";
 import "./Packages.scss";
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
+const formatDate = (dateStr) => {
+  const date = new Date(dateStr);
+  return `${date.getDate()} ${date.toLocaleString("default", {
+    month: "short",
+  })} ${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")}`;
+};
+
 const Packages = () => {
   const { packages, companies } = useInfoContext();
-  const [filteredPackages, setFilteredPackages] = useState([]);
+
   const [filters, setFilters] = useState({
     airline: null,
     type: null,
@@ -22,18 +27,8 @@ const Packages = () => {
   });
   const [sort, setSort] = useState(null);
 
-  useEffect(() => {
-    setFilteredPackages(packages);
-  }, [packages]);
-
-  const formatDate = (dateStr) => {
-    const date = new Date(dateStr);
-    return `${date.getDate()} ${date.toLocaleString("default", {
-      month: "short",
-    })} ${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")}`;
-  };
-
-  const handleFilter = () => {
+  // Memoize filtered and sorted packages
+  const filteredPackages = useMemo(() => {
     let result = [...packages];
 
     if (filters.airline) {
@@ -76,10 +71,14 @@ const Packages = () => {
       );
     }
 
-    setFilteredPackages(result);
-  };
+    return result;
+  }, [packages, filters, sort]);
 
-  const resetFilters = () => {
+  const handleFilterChange = useCallback((key, value) => {
+    setFilters((prev) => ({ ...prev, [key]: value }));
+  }, []);
+
+  const resetFilters = useCallback(() => {
     setFilters({
       airline: null,
       type: null,
@@ -90,8 +89,7 @@ const Packages = () => {
       dateTo: null,
     });
     setSort(null);
-    setFilteredPackages(packages);
-  };
+  }, []);
 
   return (
     <section className="packages-page">
@@ -112,7 +110,8 @@ const Packages = () => {
           placeholder="To’plam turi"
           allowClear
           value={filters.type}
-          onChange={(val) => setFilters({ ...filters, type: val })}
+          onChange={(val) => handleFilterChange("type", val)}
+          style={{ minWidth: 140 }}
         >
           <Option value="economy">Economy</Option>
           <Option value="standart">Standart</Option>
@@ -124,7 +123,8 @@ const Packages = () => {
           placeholder="Aviakompaniyalar (firma)"
           allowClear
           value={filters.company}
-          onChange={(val) => setFilters({ ...filters, company: val })}
+          onChange={(val) => handleFilterChange("company", val)}
+          style={{ minWidth: 160 }}
         >
           {companies.map((comp) => (
             <Option key={comp._id} value={comp.name}>
@@ -137,27 +137,39 @@ const Packages = () => {
           placeholder="Narxdan"
           min={0}
           value={filters.priceFrom}
-          onChange={(val) => setFilters({ ...filters, priceFrom: val })}
+          onChange={(val) => handleFilterChange("priceFrom", val)}
         />
         <InputNumber
           placeholder="Narxgacha"
           min={0}
           value={filters.priceTo}
-          onChange={(val) => setFilters({ ...filters, priceTo: val })}
+          onChange={(val) => handleFilterChange("priceTo", val)}
         />
 
         <RangePicker
           placeholder={["Sana (dan)", "Sana (gacha)"]}
+          value={filters.dateFrom && filters.dateTo ? [filters.dateFrom, filters.dateTo] : []}
           onChange={(dates) =>
-            setFilters({
-              ...filters,
-              dateFrom: dates ? dates[0] : null,
-              dateTo: dates ? dates[1] : null,
-            })
+            handleFilterChange("dateFrom", dates ? dates[0] : null) ||
+            handleFilterChange("dateTo", dates ? dates[1] : null)
           }
         />
 
-        <Button type="primary" onClick={handleFilter}>
+        {/* Example: If you want sorting select */}
+        {/* <Select
+          placeholder="Saralash"
+          allowClear
+          value={sort}
+          onChange={setSort}
+          style={{ minWidth: 120 }}
+        >
+          <Option value="priceAsc">Narx pastdan yuqoriga</Option>
+          <Option value="priceDesc">Narx yuqoridan pastga</Option>
+          <Option value="dateSoon">Tezroqqa</Option>
+          <Option value="dateLate">Kechroq</Option>
+        </Select> */}
+
+        <Button type="primary" onClick={() => { /* handleFilter logic if needed */ }}>
           Saralash
         </Button>
         <Button onClick={resetFilters} type="default">
@@ -178,21 +190,24 @@ const Packages = () => {
               {pkg.company?.logo && (
                 <img
                   src={pkg.company.logo.url}
-                  alt="Company Logo"
+                  alt={`${pkg.company.name} logo`}
                   className="company-logo"
+                  loading="lazy"
                 />
               )}
               <div className="main-img-wrapper">
                 <img
                   src={pkg.photo.url}
-                  alt={pkg.name}
+                  alt={`Photo of ${pkg.name}`}
                   className="main-img"
+                  loading="lazy"
                 />
               </div>
               <div className="info">
                 <div className="type">{pkg.type.toUpperCase()}</div>
                 <div className="route">
-                  {pkg.departureCity} ✈ {pkg.stopoverCities.join(" ✈ ")} ✈ {pkg.arrivalCity}
+                  {pkg.departureCity} ✈ {pkg.stopoverCities.join(" ✈ ")} ✈{" "}
+                  {pkg.arrivalCity}
                 </div>
                 <div className="dates">
                   {formatDate(pkg.departureDate)} - {formatDate(pkg.returnDate)}
@@ -207,7 +222,6 @@ const Packages = () => {
                 <div className="price">
                   Narxi: <strong>{pkg.price}$</strong>
                 </div>
-                <button className="more-btn">Batafsil</button>
               </div>
             </div>
           ))

@@ -20,9 +20,9 @@ const Footer = () => {
             <span className="brand-name">avshan odil</span>
           </div>
           <ul className="contact-info">
-            <li><EnvironmentOutlined /> Muxbir ko'chasi 3A, Toshkent</li>
+            <li><EnvironmentOutlined />Toshkent shahri, Yunusobod tumani</li>
             <li><MailOutlined /> ravshanodil2017@gmail.com</li>
-            <li><PhoneOutlined /> +998 88 317 47 74</li>
+            <li><PhoneOutlined /> +998 94 496 09 29</li>
           </ul>
         </div>
 

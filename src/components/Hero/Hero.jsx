@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Slider from "react-slick";
 import "./Hero.scss";
 import { useInfoContext } from "../../context/InfoContext";
@@ -7,10 +7,11 @@ import { Link } from "react-router-dom";
 const Hero = () => {
   const { packages } = useInfoContext();
 
-  // Get only 4 cheapest packages
-  const sortedPackages = [...packages]
-    .sort((a, b) => a.price - b.price)
-    .slice(0, 4);
+  const sortedPackages = useMemo(() => {
+    return [...packages]
+      .sort((a, b) => a.price - b.price)
+      .slice(0, 4);
+  }, [packages]);
 
   const settings = {
     dots: true,
@@ -31,11 +32,14 @@ const Hero = () => {
           <div key={index} className="hero-slide">
             <div className="hero-content">
               <div className="hero-text">
-                <img src={item.company.logo.url} alt="logo" className="hero-logo" />
+                <img
+                  src={item.company.logo.url}
+                  alt="logo"
+                  className="hero-logo"
+                  loading="lazy"
+                />
                 <h1 className="hero-title">{item.name}</h1>
-                <p className="hero-description">
-                  {item.details?.slice(0, 140)}...
-                </p>
+                <p className="hero-description">{item.details?.slice(0, 140)}...</p>
                 <div className="hero-buttons">
                   <a href={`/package/${item._id}`} className="hero-btn-primary">
                     Batafsil
@@ -50,6 +54,7 @@ const Hero = () => {
                   src={item.photo?.url || "/fallback.jpg"}
                   alt="umra"
                   className="hero-image"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -60,4 +65,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default React.memo(Hero);

@@ -14,7 +14,7 @@ const Contact = () => {
             <PhoneOutlined className="icon" />
             <div>
               <h3>Telefon raqami</h3>
-              <p>+998 90 123 45 67</p>
+              <p>+998 94 496 09 29</p>
             </div>
           </div>
           <div className="info-block">
