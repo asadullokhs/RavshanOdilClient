@@ -12,6 +12,8 @@ const Welcome = () => {
             <a href="/admin/packagesDashboard">To‘plamlar</a>
             <a href="/admin/order">Buyurtmalar</a>
             <a href="/admin/add">Qo‘shish</a>
+            <a href="/admin/comment">Fikrlar</a>
+            <a href="/admin/companies">Kompaniyalar</a>
           </div>
         </div>
       </div>

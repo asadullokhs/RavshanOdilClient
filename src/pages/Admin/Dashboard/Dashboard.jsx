@@ -6,6 +6,7 @@ import {
   AppstoreAddOutlined,
   ShoppingCartOutlined,
   CommentOutlined,
+  TeamOutlined,
 } from "@ant-design/icons";
 import logo from "/logo.png";
 import "./Dashboard.scss";
@@ -68,6 +69,12 @@ const Dashboard = () => {
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             <CommentOutlined /> Fikrlar
+          </NavLink>
+          <NavLink
+            to="/admin/companies"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <TeamOutlined /> Kompaniyalar
           </NavLink>
           <button className="logout" onClick={exit}>
             <LogoutOutlined /> Chiqish

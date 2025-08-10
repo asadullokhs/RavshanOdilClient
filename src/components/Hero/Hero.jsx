@@ -33,7 +33,7 @@ const Hero = () => {
             <div className="hero-content">
               <div className="hero-text">
                 <img
-                  src={item.company.logo.url}
+                  src={item?.company?.logo.url}
                   alt="logo"
                   className="hero-logo"
                   loading="lazy"

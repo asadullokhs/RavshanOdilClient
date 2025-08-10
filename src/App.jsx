@@ -6,6 +6,7 @@ import FlightLoader from "./components/Loader/Loader";
 // Core components
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import CompaniesDashboard from "./pages/Admin/CompaniesDashboard/CompaniesDashboard";
 
 // Lazy-loaded pages
 const Home = lazy(() => import("./pages/Home/Home"));
@@ -41,6 +42,7 @@ const App = () => {
     "/admin/add",
     "/admin/order",
     "/admin/comment",
+    "/admin/companies",
   ];
   const hideLayout = noLayoutRoutes.includes(location.pathname);
 
@@ -74,6 +76,7 @@ const App = () => {
             <Route path="add" element={<AddPackage />} />
             <Route path="order" element={<Orders />} />
             <Route path="comment" element={<CommentDashboard />} />
+            <Route path="companies" element={<CompaniesDashboard />} />
           </Route>
         </Routes>
       </Suspense>
