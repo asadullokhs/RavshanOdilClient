@@ -23,16 +23,10 @@ export const InfoProvider = ({ children }) => {
   const serverUrl = import.meta.env.VITE_APP_SERVER_URL;
 
   const fetchInitialData = useCallback(async () => {
-    // ✅ Only fetch if we don't already have data
-    if (data.packages.length && data.companies.length && data.comments.length) {
-      return;
-    }
-
     setLoading(true);
     try {
-      // ✅ Check sessionStorage cache
       const cachedData = sessionStorage.getItem("siteData");
-      if (cachedData) {
+      if (cachedData && !isRender) {
         setData(JSON.parse(cachedData));
         setLoading(false);
         return;
@@ -51,22 +45,30 @@ export const InfoProvider = ({ children }) => {
       };
 
       setData(newData);
-      sessionStorage.setItem("siteData", JSON.stringify(newData)); // ✅ Cache for this session
+      sessionStorage.setItem("siteData", JSON.stringify(newData));
     } catch (err) {
       console.error("Error fetching initial data:", err);
     } finally {
       setLoading(false);
+      setIsRender(false); // reset trigger after fetching
     }
-  }, [data.packages.length, data.companies.length, data.comments.length]);
+  }, [isRender]);
 
   useEffect(() => {
-    fetchInitialData();
-  }, [isRender, fetchInitialData]);
+    if (
+      isRender ||
+      !data.packages.length ||
+      !data.companies.length ||
+      !data.comments.length
+    ) {
+      fetchInitialData();
+    }
+  }, [isRender, fetchInitialData, data]);
 
   const fetchComments = useCallback(async () => {
     try {
       const { data: res } = await getAllComments();
-      setData(prev => ({
+      setData((prev) => ({
         ...prev,
         comments: res.comments || [],
       }));
@@ -82,9 +84,9 @@ export const InfoProvider = ({ children }) => {
 
   const value = {
     ...data,
-    setPackages: (packages) => setData(prev => ({ ...prev, packages })),
-    setCompanies: (companies) => setData(prev => ({ ...prev, companies })),
-    setComments: (comments) => setData(prev => ({ ...prev, comments })),
+    setPackages: (packages) => setData((prev) => ({ ...prev, packages })),
+    setCompanies: (companies) => setData((prev) => ({ ...prev, companies })),
+    setComments: (comments) => setData((prev) => ({ ...prev, comments })),
     fetchComments,
     loading,
     setLoading,
