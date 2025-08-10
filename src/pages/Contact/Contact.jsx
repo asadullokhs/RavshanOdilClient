@@ -1,12 +1,22 @@
 import React from "react";
 import "./Contact.scss";
-import { MailOutlined, PhoneOutlined, EnvironmentOutlined } from "@ant-design/icons";
+import {
+  MailOutlined,
+  PhoneOutlined,
+  EnvironmentOutlined,
+  InstagramOutlined,
+  FacebookOutlined,
+  YoutubeOutlined,
+} from "@ant-design/icons";
+import { FaTelegramPlane } from "react-icons/fa";
 
 const Contact = () => {
   return (
     <div className="contact-page">
       <h1 className="contact-title">Bog‘lanish</h1>
-      <p className="contact-subtitle">Savolingiz bormi? Biz bilan bog‘laning!</p>
+      <p className="contact-subtitle">
+        Savolingiz bormi? Biz bilan bog‘laning!
+      </p>
 
       <div className="contact-container">
         <div className="contact-info">
@@ -30,6 +40,37 @@ const Contact = () => {
               <h3>Manzil</h3>
               <p>Toshkent shahri, Yunusobod tumani</p>
             </div>
+          </div>
+
+          <div className="social-links">
+            <a
+              href="https://t.me/+V-K-pa8f9ygyYTgy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTelegramPlane />
+            </a>
+            <a
+              href="https://www.instagram.com/ravshanodill"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <InstagramOutlined />
+            </a>
+            <a
+              href="https://www.facebook.com/ravshanodill"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FacebookOutlined />
+            </a>
+            <a
+              href="https://www.youtube.com/watch?v=H9w7aLeuEDo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <YoutubeOutlined />
+            </a>
           </div>
         </div>
 

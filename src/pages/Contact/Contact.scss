@@ -55,6 +55,23 @@
           color: #555;
         }
       }
+
+      .social-links {
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+
+        a {
+          font-size: 28px;
+          color: #28a745;
+          transition: 0.3s;
+
+          &:hover {
+            color: #219638;
+            transform: scale(1.1);
+          }
+        }
+      }
     }
 
     .contact-form {
