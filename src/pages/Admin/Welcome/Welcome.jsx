@@ -1,4 +1,4 @@
-import './welcome.scss';
+import './Welcome.scss';
 import bg from '../../../assets/adminBg.svg'; // Replace with your actual image path
 
 const Welcome = () => {
