@@ -46,98 +46,127 @@ const OnePackage = () => {
 
   if (!selected) return <Loading />;
 
+  // ✅ Helpers to clean up possible bad data
+  const cleanText = (value) =>
+    value && value !== "undefined" ? value : "Ma'lumot yo‘q";
+
   return (
     <div className="packageDetail">
       <div className="container">
         <div className="hero">
-          <img src={selected.photo?.url} alt="Umra" loading="lazy" />
-          <div className="badge">{selected.price} dollar</div>
+          {selected.photo?.url && (
+            <img src={selected.photo.url} alt={selected.name || "Umra"} loading="lazy" />
+          )}
+          <div className="badge">
+            {selected.price ? `${selected.price} dollar` : "Narx belgilanmagan"}
+          </div>
         </div>
 
-           <div className="info">
+        <div className="info">
           <div className="infoItem">
             <h4>Davomiyligi</h4>
-            <p>{selected.duration}</p>
+            <p>{cleanText(selected.duration)}</p>
           </div>
           <div className="infoItem">
             <h4>Ziyorat davri</h4>
             <p>
-              {new Date(selected.departureDate).toLocaleDateString()} -{" "}
-              {new Date(selected.returnDate).toLocaleDateString()}
+              {selected.departureDate
+                ? new Date(selected.departureDate).toLocaleDateString()
+                : "Sana belgilanmagan"}{" "}
+              -{" "}
+              {selected.returnDate
+                ? new Date(selected.returnDate).toLocaleDateString()
+                : "Qaytish sanasi belgilanmagan"}
             </p>
           </div>
           <div className="infoItem">
             <h4>Viza turi</h4>
-            <p>{selected.visaType}</p>
+            <p>{cleanText(selected.visaType)}</p>
           </div>
           <div className="infoItem">
             <h4>Jo'nash shahri</h4>
-            <p>{selected.departureCity}</p>
+            <p>{cleanText(selected.departureCity)}</p>
           </div>
-          <div className="infoItem">
-            <h4>To‘xtash shaharlari</h4>
-            <p>{selected.stopoverCities?.join(", ")}</p>
-          </div>
+          {selected.stopoverCities?.length > 0 && (
+            <div className="infoItem">
+              <h4>To‘xtash shaharlari</h4>
+              <p>{selected.stopoverCities.join(", ")}</p>
+            </div>
+          )}
           <div className="infoItem">
             <h4>Yetib boriladigan shahar</h4>
-            <p>{selected.arrivalCity}</p>
+            <p>{cleanText(selected.arrivalCity)}</p>
           </div>
           <div className="infoItem">
             <h4>Ovqatlanish</h4>
-            <p>{selected.mealPlan}</p>
+            <p>{cleanText(selected.mealPlan)}</p>
           </div>
           <div className="infoItem">
             <h4>Tibbiy xizmat</h4>
-            <p>{selected.medicalService}</p>
+            <p>{cleanText(selected.medicalService)}</p>
           </div>
           <div className="infoItem">
             <h4>Transport</h4>
-            <p>{selected.transportService}</p>
+            <p>{cleanText(selected.transportService)}</p>
           </div>
-          <div className="infoItem">
-            <h4>Sovg’alar</h4>
-            <p>{selected.gifts?.join(", ")}</p>
-          </div>
+          {selected.gifts?.length > 0 && (
+            <div className="infoItem">
+              <h4>Sovg’alar</h4>
+              <p>{selected.gifts.join(", ")}</p>
+            </div>
+          )}
           <div className="infoItem">
             <h4>Bo'sh joylar</h4>
-            <p>{selected.seatsLeft} ta</p>
+            <p>{selected.seatsLeft ?? "Ma'lumot yo‘q"} ta</p>
           </div>
         </div>
 
-        <div className="detailsSection">
-          <h3>Ziyorat haqida</h3>
-          <p>{selected.details}</p>
-        </div>
+        {selected.details && selected.details !== "undefined" && (
+          <div className="detailsSection">
+            <h3>Ziyorat haqida</h3>
+            <p>{selected.details}</p>
+          </div>
+        )}
 
-        <div className="detailsSection">
-          <h3>Mehmonxona: {selected.hotelName}</h3>
-          <p>{selected.hotelDescription}</p>
-          <ul>
-            <li>
-              <strong>Yulduzlar: </strong>
-              <span className="stars">
-                {[...Array(Number(selected.hotelStars))].map((_, i) => (
-                  <span key={i}>★</span>
-                ))}
-              </span>
-            </li>
-            <li>
-              <strong>Masofa: </strong>
-              {selected.hotelDistance} metr
-            </li>
-          </ul>
-        </div>
+        {(selected.hotelName || selected.hotelDescription) && (
+          <div className="detailsSection">
+            <h3>
+              Mehmonxona: {cleanText(selected.hotelName)}
+            </h3>
+            <p>{cleanText(selected.hotelDescription)}</p>
+            <ul>
+              {selected.hotelStars && (
+                <li>
+                  <strong>Yulduzlar: </strong>
+                  <span className="stars">
+                    {[...Array(Number(selected.hotelStars))].map((_, i) => (
+                      <span key={i}>★</span>
+                    ))}
+                  </span>
+                </li>
+              )}
+              {selected.hotelDistance && (
+                <li>
+                  <strong>Masofa: </strong>
+                  {selected.hotelDistance} metr
+                </li>
+              )}
+            </ul>
+          </div>
+        )}
 
-        <div className="imageGrid">
-          {selected.hotelImages?.map((img, i) => (
-            <img
-              src={img?.url || img}
-              alt={`Hotel image ${i + 1} of ${selected.hotelName}`}
-              key={i}
-              loading="lazy"
-            />
-          ))}
-        </div>
+        {selected.hotelImages?.length > 0 && (
+          <div className="imageGrid">
+            {selected.hotelImages.map((img, i) => (
+              <img
+                src={img?.url || img}
+                alt={`Hotel image ${i + 1} of ${selected.hotelName || ""}`}
+                key={i}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        )}
 
         <div className="orderForm">
           <h3>Buyurtma berish</h3>

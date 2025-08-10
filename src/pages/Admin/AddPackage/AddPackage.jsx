@@ -131,16 +131,12 @@ const AddPackage = () => {
           </Form.Item>
 
           {/* Price */}
-          <Form.Item name="price" label="Narxi">
+          <Form.Item name="price" label="Narxi" rules={[{ required: true }]}>
             <InputNumber min={0} style={{ width: "100%" }} />
           </Form.Item>
 
           {/* Duration */}
-          <Form.Item
-            name="duration"
-            label="Davomiyligi"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="duration" label="Davomiyligi">
             <Input placeholder="Masalan: 10 kun / 9 kecha" />
           </Form.Item>
 
@@ -182,11 +178,7 @@ const AddPackage = () => {
           </Form.Item>
 
           {/* Stopover Cities */}
-          <Form.Item
-            name="stopoverCities"
-            label="Oraliq shaharlar"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="stopoverCities" label="Oraliq shaharlar">
             <Select mode="tags" placeholder="Shaharlarni kiriting" />
           </Form.Item>
 
@@ -206,47 +198,27 @@ const AddPackage = () => {
           </Form.Item>
 
           {/* Hotel Description */}
-          <Form.Item
-            name="hotelDescription"
-            label="Mehmonxona tavsifi"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="hotelDescription" label="Mehmonxona tavsifi">
             <TextArea rows={3} />
           </Form.Item>
 
           {/* Meal Plan */}
-          <Form.Item
-            name="mealPlan"
-            label="Taomnoma"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="mealPlan" label="Taomnoma">
             <Input />
           </Form.Item>
 
           {/* Medical Service */}
-          <Form.Item
-            name="medicalService"
-            label="Tibbiy xizmat"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="medicalService" label="Tibbiy xizmat">
             <Input />
           </Form.Item>
 
           {/* Transport Service */}
-          <Form.Item
-            name="transportService"
-            label="Transport xizmati"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="transportService" label="Transport xizmati">
             <Input />
           </Form.Item>
 
           {/* Gifts */}
-          <Form.Item
-            name="gifts"
-            label="Sovg‘alar"
-            rules={[{ required: true }]}
-          >
+          <Form.Item name="gifts" label="Sovg‘alar">
             <Select mode="tags" placeholder="Sovg‘alarni kiriting" />
           </Form.Item>
 
@@ -298,7 +270,7 @@ const AddPackage = () => {
             label="Mehmonxona suratlari"
             valuePropName="fileList"
             getValueFromEvent={(e) => e?.fileList}
-            rules={[{ required: true, message: "Suratlarni yuklang" }]}
+            rules={[{ message: "Suratlarni yuklang" }]}
           >
             <Upload multiple beforeUpload={() => false} listType="picture-card">
               <div>+</div>
