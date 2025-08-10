@@ -186,74 +186,74 @@ const PackagesDashboard = () => {
           selectedPackage && (
             <>
               <Image
-                src={selectedPackage.photo.url}
+                src={selectedPackage?.photo.url}
                 alt="main-img"
                 width="100%"
               />
               <p>
-                <strong>Turi:</strong> {selectedPackage.type}
+                <strong>Turi:</strong> {selectedPackage?.type}
               </p>
               <p>
-                <strong>Narxi:</strong> ${selectedPackage.price}
+                <strong>Narxi:</strong> ${selectedPackage?.price}
               </p>
               <p>
-                <strong>Qolgan joylar:</strong> {selectedPackage.seatsLeft}
+                <strong>Qolgan joylar:</strong> {selectedPackage?.seatsLeft}
               </p>
               <p>
-                <strong>Viza turi:</strong> {selectedPackage.visaType}
+                <strong>Viza turi:</strong> {selectedPackage?.visaType}
               </p>
               <p>
-                <strong>Parvoz:</strong> {selectedPackage.departureCity} ✈{" "}
-                {selectedPackage.stopoverCities.join(" ✈ ")} ✈{" "}
-                {selectedPackage.arrivalCity}
+                <strong>Parvoz:</strong> {selectedPackage?.departureCity} ✈{" "}
+                {selectedPackage?.stopoverCities.join(" ✈ ")} ✈{" "}
+                {selectedPackage?.arrivalCity}
               </p>
               <p>
                 <strong>Sanalar:</strong>{" "}
-                {new Date(selectedPackage.departureDate).toLocaleDateString()} -{" "}
-                {new Date(selectedPackage.returnDate).toLocaleDateString()}
+                {new Date(selectedPackage?.departureDate).toLocaleDateString()} -{" "}
+                {new Date(selectedPackage?.returnDate).toLocaleDateString()}
               </p>
               <p>
-                <strong>Mehmonxona:</strong> {selectedPackage.hotelName} (
-                {selectedPackage.hotelStars}⭐, {selectedPackage.hotelDistance}
+                <strong>Mehmonxona:</strong> {selectedPackage?.hotelName} (
+                {selectedPackage?.hotelStars}⭐, {selectedPackage?.hotelDistance}
                 m)
               </p>
               <p>
-                <strong>Ovqatlanish:</strong> {selectedPackage.mealPlan} mahal
+                <strong>Ovqatlanish:</strong> {selectedPackage?.mealPlan} mahal
               </p>
               <p>
                 <strong>Sog'liqni saqlash:</strong>{" "}
-                {selectedPackage.medicalService}
+                {selectedPackage?.medicalService}
               </p>
               <p>
-                <strong>Transport:</strong> {selectedPackage.transportService}
+                <strong>Transport:</strong> {selectedPackage?.transportService}
               </p>
               <p>
-                <strong>Sovg'alar:</strong> {selectedPackage.gifts?.join(", ")}
+                <strong>Sovg'alar:</strong> {selectedPackage?.gifts?.join(", ")}
               </p>
               <p>
-                <strong>Tavsif:</strong> {selectedPackage.details}
+                <strong>Tavsif:</strong> {selectedPackage?.details}
               </p>
               <div className="company-info">
                 <h3>📦 Kompaniya Ma'lumotlari</h3>
                 <Image
                   width={100}
-                  src={selectedPackage.company.logo.url}
+                  src={selectedPackage?.company?.logo.url}
                   alt="company-logo"
                 />
                 <p>
-                  <strong>Nom:</strong> {selectedPackage.company.name}
+                  <strong>Nom:</strong> {selectedPackage?.company?.name}
                 </p>
                 <p>
-                  <strong>Davlat:</strong> {selectedPackage.company.country}
+                  <strong>Davlat:</strong> {selectedPackage?.company?.country}
                 </p>
                 <p>
                   <strong>Web:</strong>{" "}
                   <a
-                    href={`https://${selectedPackage.company.website}`}
+                    href={`${selectedPackage?.company?.website}`}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {selectedPackage.company.website}
+                    {selectedPackage?.company?.website}
                   </a>
                 </p>
               </div>
