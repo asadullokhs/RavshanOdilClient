@@ -77,9 +77,7 @@ const PackagesDashboard = () => {
         stopoverCities: values.stopoverCities
           ? values.stopoverCities.split(",").map((s) => s.trim())
           : [],
-        gifts: values.gifts
-          ? values.gifts.split(",").map((s) => s.trim())
-          : [],
+        gifts: values.gifts ? values.gifts.split(",").map((s) => s.trim()) : [],
         departureDate: values.departureDate
           ? values.departureDate.toISOString()
           : null,
@@ -295,7 +293,7 @@ const PackagesDashboard = () => {
             <Form.Item
               label="Qaytish sanasi"
               name="returnDate"
-              rules={[{ required: true, message: "Qaytish sanasini kiriting" }]}
+              rules={[{ message: "Qaytish sanasini kiriting" }]}
             >
               <DatePicker style={{ width: "100%" }} format="YYYY-MM-DD" />
             </Form.Item>
