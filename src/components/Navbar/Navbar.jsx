@@ -7,7 +7,7 @@ import logo from "../../assets/logo.png";
 
 const navLinks = [
   { to: "/", label: "ASOSIY" },
-  { to: "/packages", label: "UMRA TO’PLAMLARI" },
+  { to: "/packages", label: "UMRA TO’PLAMLARI VA BILETLAR" },
   { to: "/about", label: "BIZ HAQIMIZDA" },
   { to: "/partners", label: "BIZNING HAMKORLAR" },
   { to: "/comment", label: "FIKR VA MULOHAZALR" },

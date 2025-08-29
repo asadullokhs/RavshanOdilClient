@@ -27,7 +27,6 @@ const Packages = () => {
   });
   const [sort, setSort] = useState(null);
 
-  // Memoize filtered and sorted packages
   const filteredPackages = useMemo(() => {
     let result = [...packages];
 
@@ -92,7 +91,7 @@ const Packages = () => {
   }, []);
 
   return (
-    <section className="packages-page">
+    <section className="container packages-page">
       <div className="packages-info-header">
         <div className="title">
           <h1>Umra Sayohati To‘plamlari</h1>
@@ -111,7 +110,6 @@ const Packages = () => {
           allowClear
           value={filters.type}
           onChange={(val) => handleFilterChange("type", val)}
-          style={{ minWidth: 140 }}
         >
           <Option value="economy">Economy</Option>
           <Option value="standart">Standart</Option>
@@ -120,11 +118,10 @@ const Packages = () => {
         </Select>
 
         <Select
-          placeholder="Aviakompaniyalar (firma)"
+          placeholder="Aviakompaniya"
           allowClear
           value={filters.company}
           onChange={(val) => handleFilterChange("company", val)}
-          style={{ minWidth: 160 }}
         >
           {companies.map((comp) => (
             <Option key={comp._id} value={comp.name}>
@@ -148,31 +145,19 @@ const Packages = () => {
 
         <RangePicker
           placeholder={["Sana (dan)", "Sana (gacha)"]}
-          value={filters.dateFrom && filters.dateTo ? [filters.dateFrom, filters.dateTo] : []}
+          value={
+            filters.dateFrom && filters.dateTo ? [filters.dateFrom, filters.dateTo] : []
+          }
           onChange={(dates) =>
             handleFilterChange("dateFrom", dates ? dates[0] : null) ||
             handleFilterChange("dateTo", dates ? dates[1] : null)
           }
         />
 
-        {/* Example: If you want sorting select */}
-        {/* <Select
-          placeholder="Saralash"
-          allowClear
-          value={sort}
-          onChange={setSort}
-          style={{ minWidth: 120 }}
-        >
-          <Option value="priceAsc">Narx pastdan yuqoriga</Option>
-          <Option value="priceDesc">Narx yuqoridan pastga</Option>
-          <Option value="dateSoon">Tezroqqa</Option>
-          <Option value="dateLate">Kechroq</Option>
-        </Select> */}
-
-        <Button type="primary" onClick={() => { /* handleFilter logic if needed */ }}>
+        <Button type="primary" className="btn-filter">
           Saralash
         </Button>
-        <Button onClick={resetFilters} type="default">
+        <Button className="btn-reset" onClick={resetFilters}>
           Tozalash
         </Button>
       </div>
