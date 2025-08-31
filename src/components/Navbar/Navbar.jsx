@@ -7,7 +7,8 @@ import logo from "../../assets/logo.png";
 
 const navLinks = [
   { to: "/", label: "ASOSIY" },
-  { to: "/packages", label: "UMRA TO’PLAMLARI VA BILETLAR" },
+  { to: "/packages", label: "UMRA TO’PLAMLARI" },
+  { to: "/tickets", label: "CHIPTALAR" },
   { to: "/about", label: "BIZ HAQIMIZDA" },
   { to: "/partners", label: "BIZNING HAMKORLAR" },
   { to: "/comment", label: "FIKR VA MULOHAZALR" },
@@ -23,6 +24,7 @@ function Navbar() {
           <img src={logo} alt="Logo" loading="lazy" />
         </Link>
 
+        {/* Desktop Navigation */}
         <nav className="desktop-nav" aria-label="Primary navigation">
           {navLinks.map(({ to, label }) => (
             <Link key={to} to={to} className="nav-link">
@@ -31,6 +33,7 @@ function Navbar() {
           ))}
         </nav>
 
+        {/* Right side: Contact + Hamburger */}
         <div className="right-side">
           <Link to="/contact" className="contact-button">
             Bog’lanish
@@ -46,12 +49,16 @@ function Navbar() {
         </div>
       </div>
 
+      {/* Mobile Drawer */}
       <Drawer
         placement="right"
         open={open}
         onClose={() => setOpen(false)}
         className="mobile-drawer"
         closeIcon={false}
+        width={280}
+        drawerStyle={{ background: "#fff" }}
+        bodyStyle={{ padding: "1rem" }}
       >
         <div className="drawer-header">
           <button
@@ -73,6 +80,9 @@ function Navbar() {
               {label}
             </Link>
           ))}
+          <Link to="/contact" className="contact-button">
+            Bog’lanish
+          </Link>
         </nav>
       </Drawer>
     </header>

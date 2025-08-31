@@ -17,6 +17,7 @@ const Contact = lazy(() => import("./pages/Contact/Contact"));
 const OnePackage = lazy(() => import("./pages/OnePackage/OnePackage"));
 const Comment = lazy(() => import("./pages/Comments/Comment"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin/AdminLogin"));
+const Tickets = lazy(() => import("./pages/Tickets/Tickets"));
 
 // Lazy-load admin dashboard and subpages
 const Dashboard = lazy(() => import("./pages/Admin/Dashboard/Dashboard"));
@@ -67,6 +68,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/package/:id" element={<OnePackage />} />
           <Route path="/comment" element={<Comment />} />
+          <Route path="/tickets" element={<Tickets />} />
 
           {/* Admin */}
           <Route path="/adminLogin" element={<AdminLogin />} />

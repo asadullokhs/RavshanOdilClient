@@ -1,0 +1,294 @@
+.tickets-page {
+  background-color: #f7f7f7;
+  .tickets-hero {
+    position: relative;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    align-items: center;
+    background: url("../../assets/pexels-pixabay-53594.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+
+    .hero-bg {
+      position: absolute;
+      width: 1500px; /* resize plane */
+      height: auto;
+      object-fit: contain;
+      z-index: 2;
+    }
+
+    /* Tickets.scss */
+
+    .search-bar {
+      position: absolute; // or absolute relative to body
+      bottom: 20px; // distance from top of page
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2; // ensure it's above other content
+      background: #fff;
+      border-radius: 12px;
+      width: 65%;
+      display: flex;
+      gap: 10px;
+      padding: 15px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      align-items: center;
+      justify-content: space-between;
+      .search-input {
+        flex: 1; // make all inputs expand equally
+        min-width: 180px; // optional minimum width
+        height: 50px; // taller input
+        font-size: 16px; // bigger text
+      }
+
+      // For Ant Design Select component specifically
+      .search-input .ant-select-selector {
+        height: 50px !important; // match input height
+        display: flex;
+        align-items: center; // vertically center text
+        font-size: 16px;
+      }
+
+      // For Ant Design RangePicker
+      .search-input .ant-picker {
+        height: 50px !important; // taller picker
+        font-size: 16px;
+      }
+
+      .search-btn {
+        background: #28a745 !important;
+        border: none;
+        font-weight: bold;
+        padding: 0 20px;
+        height: 40px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background: #218838 !important; /* lighter orange on hover */
+        }
+      }
+    }
+
+    .ticket-card {
+      .price {
+        color: #e85d04; /* price accent */
+      }
+      .ticket-seats {
+        color: #e85d04;
+      }
+    }
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 40px 20px 80px 20px;
+  }
+
+  .tickets-results {
+    margin-top: 40px;
+
+    .results-count {
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .tickets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .ticket-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .ticket-image {
+        width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 12px 12px 0 0;
+        margin-bottom: 20px;
+      }
+
+      .ticket-header {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+
+        .company-logo {
+          height: 40px;
+        }
+
+        .price {
+          font-size: 18px;
+          font-weight: bold;
+          color: #28a745;
+        }
+      }
+
+      .ticket-route {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+
+        .city {
+          font-size: 16px;
+          font-weight: 500;
+        }
+
+        .arrow {
+          margin: 0 10px;
+          font-size: 18px;
+        }
+      }
+
+      .ticket-dates {
+        font-size: 14px;
+        color: #555;
+      }
+
+      .ticket-type {
+        margin-top: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .ticket-seats {
+        margin-top: 5px;
+        color: #218838;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+// Large screens (desktops / TVs)
+@media screen and (max-width: 1440px) {
+  .tickets-hero {
+    .search-bar {
+      width: 70%;
+      gap: 8px;
+      padding: 12px;
+    }
+    .search-input {
+      height: 45px;
+      font-size: 15px;
+    }
+    .search-btn {
+      height: 38px;
+      font-size: 15px;
+    }
+  }
+}
+
+// Medium screens (laptops)
+@media screen and (max-width: 1024px) {
+  .tickets-hero {
+    flex-direction: column;
+    gap: 20px;
+    .search-bar {
+      width: 80%;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 15px;
+      .search-input {
+        width: 100%;
+        height: 50px;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      .search-btn {
+        width: 100%;
+        height: 50px;
+      }
+    }
+  }
+}
+
+// Tablets
+@media screen and (max-width: 768px) {
+  .tickets-hero {
+    height: auto; // let it expand
+    padding: 40px 20px;
+    .hero-bg {
+      width: 100%;
+      height: auto;
+    }
+    .search-bar {
+      width: 90%;
+      bottom: 10px;
+      padding: 15px;
+      .search-input {
+        height: 45px;
+        font-size: 15px;
+      }
+      .search-btn {
+        height: 45px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+// Mobile (phones)
+@media screen and (max-width: 480px) {
+  .tickets-hero {
+    // height: 600px !important; // let it expand
+
+    .hero-bg {
+      width: 200% !important;
+      height: 600px !important;
+      top: -40px;
+    }
+    // padding: 40px 20px;
+    .search-bar {
+      flex-direction: column;
+      width: 95%;
+      padding: 10px;
+      gap: 10px;
+      .search-input {
+        width: 100%;
+        height: 45px;
+        font-size: 14px;
+      }
+      .search-btn {
+        width: 100%;
+        height: 45px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .tickets-results {
+    padding: 0 10px;
+    .tickets-grid {
+      grid-template-columns: 1fr; // single column
+      gap: 15px;
+    }
+  }
+}
+
+// Extra large TVs
+@media screen and (min-width: 1920px) {
+  .tickets-hero {
+    .hero-bg {
+      width: 2000px;
+    }
+    .search-bar {
+      width: 60%;
+    }
+  }
+}

@@ -1,7 +1,14 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { getAllPackages } from "../api/packageRequests";
 import { getAllCompanies } from "../api/companyRequests";
 import { getAllComments } from "../api/commentRequests";
+import { getAllTickets } from "../api/ticketRequests";
 
 const InfoContext = createContext();
 export const useInfoContext = () => useContext(InfoContext);
@@ -15,6 +22,7 @@ export const InfoProvider = ({ children }) => {
     packages: [],
     companies: [],
     comments: [],
+    tickets: [],
   });
 
   const [loading, setLoading] = useState(false);
@@ -32,16 +40,18 @@ export const InfoProvider = ({ children }) => {
         return;
       }
 
-      const [pkgRes, compRes, commentRes] = await Promise.all([
+      const [pkgRes, compRes, commentRes, ticketRes] = await Promise.all([
         getAllPackages(),
         getAllCompanies(),
         getAllComments(),
+        getAllTickets(),
       ]);
 
       const newData = {
         packages: pkgRes?.data?.packages || [],
         companies: compRes?.data?.companies || [],
         comments: commentRes?.data?.comments || [],
+        tickets: ticketRes?.data?.tickets || [],
       };
 
       setData(newData);
@@ -59,7 +69,8 @@ export const InfoProvider = ({ children }) => {
       isRender ||
       !data.packages.length ||
       !data.companies.length ||
-      !data.comments.length
+      !data.comments.length ||
+      !data.tickets.length
     ) {
       fetchInitialData();
     }
@@ -87,6 +98,7 @@ export const InfoProvider = ({ children }) => {
     setPackages: (packages) => setData((prev) => ({ ...prev, packages })),
     setCompanies: (companies) => setData((prev) => ({ ...prev, companies })),
     setComments: (comments) => setData((prev) => ({ ...prev, comments })),
+    setTickets: (tickets) => setData((prev) => ({ ...prev, tickets })),
     fetchComments,
     loading,
     setLoading,
