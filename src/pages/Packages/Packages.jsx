@@ -1,6 +1,7 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Select, Button, InputNumber, DatePicker } from "antd";
 import { useInfoContext } from "../../context/InfoContext";
+import { useLocation } from "react-router-dom";
 import "./Packages.scss";
 
 const { Option } = Select;
@@ -15,23 +16,40 @@ const formatDate = (dateStr) => {
 
 const Packages = () => {
   const { packages, companies } = useInfoContext();
+  const location = useLocation();
+  const initialForm = location.state;
 
   const [filters, setFilters] = useState({
-    airline: null,
     type: null,
     company: null,
     priceFrom: null,
     priceTo: null,
     dateFrom: null,
     dateTo: null,
+    to: null,
+    people: null,
   });
   const [sort, setSort] = useState(null);
+
+  // 🟢 apply Hero search data
+  useEffect(() => {
+    if (initialForm) {
+      setFilters((prev) => ({
+        ...prev,
+        to: initialForm.to || null,
+        people: initialForm.people || null,
+        dateFrom: initialForm.date ? new Date(initialForm.date) : null,
+      }));
+    }
+  }, [initialForm]);
 
   const filteredPackages = useMemo(() => {
     let result = [...packages];
 
-    if (filters.airline) {
-      result = result.filter((pkg) => pkg.airline === filters.airline);
+    if (filters.to) {
+      result = result.filter((pkg) =>
+        pkg.arrivalCity?.toLowerCase().includes(filters.to.toLowerCase())
+      );
     }
     if (filters.type) {
       result = result.filter((pkg) => pkg.type === filters.type);
@@ -47,28 +65,21 @@ const Packages = () => {
     }
     if (filters.dateFrom) {
       result = result.filter(
-        (pkg) => new Date(pkg.departureDate) >= filters.dateFrom.toDate()
+        (pkg) => new Date(pkg.departureDate) >= new Date(filters.dateFrom)
       );
     }
     if (filters.dateTo) {
       result = result.filter(
-        (pkg) => new Date(pkg.departureDate) <= filters.dateTo.toDate()
+        (pkg) => new Date(pkg.departureDate) <= new Date(filters.dateTo)
       );
     }
 
-    if (sort === "priceAsc") {
-      result.sort((a, b) => a.price - b.price);
-    } else if (sort === "priceDesc") {
-      result.sort((a, b) => b.price - a.price);
-    } else if (sort === "dateSoon") {
-      result.sort(
-        (a, b) => new Date(a.departureDate) - new Date(b.departureDate)
-      );
-    } else if (sort === "dateLate") {
-      result.sort(
-        (a, b) => new Date(b.departureDate) - new Date(a.departureDate)
-      );
-    }
+    if (sort === "priceAsc") result.sort((a, b) => a.price - b.price);
+    if (sort === "priceDesc") result.sort((a, b) => b.price - a.price);
+    if (sort === "dateSoon")
+      result.sort((a, b) => new Date(a.departureDate) - new Date(b.departureDate));
+    if (sort === "dateLate")
+      result.sort((a, b) => new Date(b.departureDate) - new Date(a.departureDate));
 
     return result;
   }, [packages, filters, sort]);
@@ -79,13 +90,14 @@ const Packages = () => {
 
   const resetFilters = useCallback(() => {
     setFilters({
-      airline: null,
       type: null,
       company: null,
       priceFrom: null,
       priceTo: null,
       dateFrom: null,
       dateTo: null,
+      to: null,
+      people: null,
     });
     setSort(null);
   }, []);
@@ -97,9 +109,7 @@ const Packages = () => {
           <h1>Umra Sayohati To‘plamlari</h1>
           <p>
             Bu sahifada siz o'zingizga mos, byudjet va ehtiyojlarga mos umra
-            sayohati to'plamlarini topishingiz mumkin. Sayohatlar zamonaviy
-            qulayliklar, to'liq ma'lumot va ishonchli hamkorlar bilan tashkil
-            etiladi.
+            sayohati to'plamlarini topishingiz mumkin.
           </p>
         </div>
       </div>
@@ -145,9 +155,6 @@ const Packages = () => {
 
         <RangePicker
           placeholder={["Sana (dan)", "Sana (gacha)"]}
-          value={
-            filters.dateFrom && filters.dateTo ? [filters.dateFrom, filters.dateTo] : []
-          }
           onChange={(dates) =>
             handleFilterChange("dateFrom", dates ? dates[0] : null) ||
             handleFilterChange("dateTo", dates ? dates[1] : null)
