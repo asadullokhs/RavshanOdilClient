@@ -3,6 +3,7 @@ import "./Home.scss";
 import { useInfoContext } from "../../context/InfoContext";
 import Hero from "../../components/Hero/Hero";
 import PackageCarousel from "../../components/PackageCarousel/PackageCarousel";
+import TicketCarousel from "../../components/TicketCarousel/TicketCarousel";
 
 const CompanyCarousel = lazy(() =>
   import("../../components/CompanyCarousel/CompanyCarousel")
@@ -25,6 +26,7 @@ const Home = () => {
         </Suspense>
       )}
       <PackageCarousel />
+      <TicketCarousel />
 
       <Suspense fallback={null}>
         <TestimonialCarousel />
